@@ -2,6 +2,8 @@
 
 FROM python:3.9-slim
 
+ENV API_URL=http://localhost:8080
+
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
