@@ -1,5 +1,4 @@
 from confluent_kafka import Consumer
-import streamlit as st
 class KafkaConsumer:
     def __init__(self):
         self.consumer_config = {
@@ -14,7 +13,7 @@ class KafkaConsumer:
         self.consumer.subscribe([topic])
         print(f"Subscribed to topic: {topic}")
 
-    def consume_messages(self, streamlit):
+    def consume_messages(self):
         print("Waiting for messages...")
         try:
             while True:
