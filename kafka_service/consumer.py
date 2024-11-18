@@ -2,7 +2,7 @@ from confluent_kafka import Consumer
 class KafkaConsumer:
     def __init__(self):
         self.consumer_config = {
-            'bootstrap.servers': 'localhost:30092',
+            'bootstrap.servers': 'localhost:9092',
             'group.id': 'streamlit-consumer-group',
             'auto.offset.reset': 'earliest',
         }
