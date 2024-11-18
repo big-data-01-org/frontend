@@ -8,10 +8,11 @@ def run_consumer(consumer: KafkaConsumer):
 
 if __name__ == "__main__":
     kafka_consumer = KafkaConsumer()
-    kafka_consumer.subscribe('your-topic')
+    kafka_consumer.subscribe('test-topic')
 
     consumer_thread = threading.Thread(target=run_consumer, args=(kafka_consumer,))
     consumer_thread.start()
+
 
     # Streamlit UI code here
     st.title("Kafka Consumer")
