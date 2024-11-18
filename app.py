@@ -13,10 +13,11 @@ if __name__ == "__main__":
     consumer_thread = threading.Thread(target=run_consumer, args=(kafka_consumer,))
     consumer_thread.start()
 
-
     # Streamlit UI code here
     st.title("Kafka Consumer")
     st.write("Consuming messages from Kafka...")
+    
+    print("Consuming messages from Kafka...")
 
     # Create a placeholder for the messages
     message_placeholder = st.empty()
