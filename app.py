@@ -23,12 +23,7 @@ if __name__ == "__main__":
     message_placeholder = st.empty()
 
     # Function to update the message placeholder
-    def update_messages():
-        while True:
-            if kafka_consumer.messages:
-                message_placeholder.text_area("Messages", "\n".join(kafka_consumer.messages), height=300)
-            time.sleep(1)  # Adjust the sleep time as needed
-
-    # Start a thread to update the messages
-    update_thread = threading.Thread(target=update_messages)
-    update_thread.start()
+    while True:
+        if kafka_consumer.messages:
+            message_placeholder.text_area("Messages", "\n".join(kafka_consumer.messages), height=300)
+        time.sleep(1)  # Adjust the sleep time as needed
