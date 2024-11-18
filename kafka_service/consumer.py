@@ -1,0 +1,33 @@
+from confluent_kafka import Consumer
+import streamlit as st
+class KafkaConsumer:
+    def __init__(self):
+        self.consumer_config = {
+            'bootstrap.servers': 'localhost:30092',
+            'group.id': 'streamlit-consumer-group',
+            'auto.offset.reset': 'earliest',
+        }
+        self.consumer = Consumer(self.consumer_config)
+        self.messages = []
+
+    def subscribe(self, topic: str):
+        self.consumer.subscribe([topic])
+        print(f"Subscribed to topic: {topic}")
+
+    def consume_messages(self, streamlit):
+        print("Waiting for messages...")
+        try:
+            while True:
+                msg = self.consumer.poll(timeout=1.0)
+                if msg is None:
+                    continue
+                if msg.error():
+                    print(f"Consumer error: {msg.error()}")
+                    continue
+
+                print(f"Received message: {msg.value().decode('utf-8')}")
+                self.messages.append(msg.value().decode('utf-8'))
+        except KeyboardInterrupt:
+            pass
+        finally:
+            self.consumer.close()

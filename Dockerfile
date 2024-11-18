@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
 
 COPY . /app
 
+COPY . /kafka-service
+
 RUN pip3 install -r requirements.txt
 
 EXPOSE 8501
