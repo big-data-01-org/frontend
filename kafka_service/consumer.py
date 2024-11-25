@@ -7,7 +7,7 @@ class KafkaConsumer:
             'auto.offset.reset': 'earliest',
         }
         self.consumer = Consumer(self.consumer_config)
-        self.messages = []
+        self.message = ''
 
     def subscribe(self, topic: str):
         self.consumer.subscribe([topic])
@@ -25,7 +25,7 @@ class KafkaConsumer:
                     continue
 
                 print(f"Received message: {msg.value().decode('utf-8')}")
-                self.messages.append(msg.value().decode('utf-8'))
+                self.message = msg.value().decode('utf-8')
         except KeyboardInterrupt:
             pass
         finally:

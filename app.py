@@ -20,10 +20,11 @@ if __name__ == "__main__":
     print("Consuming messages from Kafka...")
 
     # Create a placeholder for the messages
-    message_placeholder = st.empty()
+    message_placeholder = st.text_area("Messages", "", height=300)
 
     # Function to update the message placeholder
     while True:
-        if kafka_consumer.messages:
-            message_placeholder.text_area("Messages", "\n".join(kafka_consumer.messages), height=300)
+        if len(kafka_consumer.message) > 0:
+            message_placeholder.text("\n".join(kafka_consumer.message))
+            kafka_consumer.message = ""
         time.sleep(1)  # Adjust the sleep time as needed
