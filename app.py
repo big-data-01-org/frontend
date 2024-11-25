@@ -22,6 +22,5 @@ if __name__ == "__main__":
     # Function to update the message placeholder
     while True:
         if kafka_consumer.message:
-            os.write(1,f"Message: {kafka_consumer.message}"+'\n')
             st.write(f"Message: {kafka_consumer.message}")
         time.sleep(1)  # Adjust the sleep time as needed
