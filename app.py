@@ -17,14 +17,17 @@ if __name__ == "__main__":
     st.title("Kafka Consumer")
     st.write("Consuming messages from Kafka...")
     
+    session = st.session_state.get('text', 'original')
+    
     print("Consuming messages from Kafka...")
 
-    # Create a placeholder for the messages
-    message_placeholder = st.text_area("Messages", "", height=300)
 
+    # Create a placeholder for the messages
+    
     # Function to update the message placeholder
     while True:
         if len(kafka_consumer.message) > 0:
-            message_placeholder.text("\n".join(kafka_consumer.message))
+            print(f"Message: {kafka_consumer.message}")
+            st.session_state.text = kafka_consumer.message
             kafka_consumer.message = ""
-        time.sleep(1)  # Adjust the sleep time as needed
+        time.sleep(2)  # Adjust the sleep time as needed
