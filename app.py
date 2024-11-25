@@ -2,7 +2,7 @@ import threading
 import streamlit as st
 from kafka_service.consumer import KafkaConsumer
 import time
-
+import os
 def run_consumer(consumer: KafkaConsumer):
     consumer.consume_messages()
 
@@ -17,12 +17,11 @@ if __name__ == "__main__":
     st.title("Kafka Consumer")
     st.write("Consuming messages from Kafka...")
     
-
     # Create a placeholder for the messages
     
     # Function to update the message placeholder
     while True:
-        if len(kafka_consumer.message) > 0:
-            print(f"Message: {kafka_consumer.message}")
+        if kafka_consumer.message:
+            os.write(1,f"Message: {kafka_consumer.message}"+'\n')
             st.write(f"Message: {kafka_consumer.message}")
-        time.sleep(2)  # Adjust the sleep time as needed
+        time.sleep(1)  # Adjust the sleep time as needed

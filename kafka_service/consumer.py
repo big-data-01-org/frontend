@@ -1,4 +1,5 @@
 from confluent_kafka import Consumer
+import os
 class KafkaConsumer:
     def __init__(self):
         self.consumer_config = {
@@ -11,22 +12,24 @@ class KafkaConsumer:
 
     def subscribe(self, topic: str):
         self.consumer.subscribe([topic])
-        print(f"Subscribed to topic: {topic}")
+        os.write(1, b'Subscribed to topic...\n')
 
     def consume_messages(self):
-        print("Waiting for messages...")
+        os.write(1, b'Waiting for messages...\n')
         try:
             while True:
                 msg = self.consumer.poll(timeout=1.0)
                 if msg is None:
+                    os.write(1, b'No messages found...\n')
                     continue
                 if msg.error():
-                    print(f"Consumer error: {msg.error()}")
+                    os.write(1, b'Consumer error...\n')
                     continue
 
-                print(f"Received message: {msg.value().decode('utf-8')}")
+                os.write(1, b''+msg.value()+'\n')
                 self.message = msg.value().decode('utf-8')
         except KeyboardInterrupt:
             pass
         finally:
+            os.write(1, b'Closing consumer...\n')
             self.consumer.close()
