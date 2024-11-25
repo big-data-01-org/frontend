@@ -26,8 +26,8 @@ class KafkaConsumer:
                     os.write(1, b'Consumer error...\n')
                     continue
                 
-                os.write(1, msg+'\n')
-                self.message = msg
+                os.write(1, msg.value()+'\n')
+                self.message = msg.value()
         except KeyboardInterrupt:
             pass
         finally:
