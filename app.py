@@ -32,20 +32,18 @@ if __name__ == "__main__":
             # Display the response
             if response.status_code == 200:
                 st.success("Request Successful!")
-                st.write("Response:", response.text)
+            
+                # Parse the response JSON
+                response_data = response.json()
+                if "result" in response_data:
+                    # Display the result nicely
+                    result = response_data["result"]
+                    st.metric(label="Prediction Result", value=f"{result:.2f}")
+                else:
+                    st.warning("Response does not contain a 'result' field.")
             else:
                 st.error(f"Request failed with status code: {response.status_code}")
                 st.write("Error details:", response.text)
         except Exception as e:
             st.error("An error occurred while making the request.")
             st.write(str(e))
-
-    # Create a placeholder for the messages
-    """
-    # Function to update the message placeholder
-    while True:
-        if len(kafka_consumer.message) > 0:
-            st.write(f"Message: {kafka_consumer.message}")
-            kafka_consumer.message = ''
-        #time.sleep(1)  # Adjust the sleep time as needed
-    """
