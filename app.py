@@ -8,7 +8,7 @@ def run_consumer(consumer: KafkaConsumer):
 
 if __name__ == "__main__":
     kafka_consumer = KafkaConsumer()
-    kafka_consumer.subscribe('test-topic')
+    kafka_consumer.subscribe('olympics')
 
     consumer_thread = threading.Thread(target=run_consumer, args=(kafka_consumer,))
     consumer_thread.start()
