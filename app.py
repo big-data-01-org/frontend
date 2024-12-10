@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     response = requests.get(request)
 
-    st.write(response.result)
+    st.write(response)
 
     # Create a placeholder for the messages
     """
