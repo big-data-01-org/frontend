@@ -19,11 +19,11 @@ if __name__ == "__main__":
     st.title("Kafka Consumer")
     st.write("Consuming messages from Kafka...")
     
-    request = "https://10.123.3.156:30503/predict?country=USA&year=2020"
+    request = "http://10.123.3.156:30503/predict?country=USA&year=2020"
 
     response = requests.get(request)
 
-    st.write(response)
+    st.write(response.result)
 
     # Create a placeholder for the messages
     """
