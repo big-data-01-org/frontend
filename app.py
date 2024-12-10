@@ -14,16 +14,31 @@ if __name__ == "__main__":
 
     consumer_thread = threading.Thread(target=run_consumer, args=(kafka_consumer,))
     consumer_thread.start()
-
-    # Streamlit UI code here
-    st.title("Kafka Consumer")
-    st.write("Consuming messages from Kafka...")
     
-    request = "http://10.123.3.156:30503/predict?country=USA&year=2020"
+    # Input fields for country and year
+    country = st.text_input("Country NOC", value="USA")
+    year = st.text_input("Year", value="2020")
 
-    response = requests.get(request)
+    # URL preview
+    base_url = "http://10.123.3.156:30503/predict"
+    constructed_url = f"{base_url}?country={country}&year={year}"
 
-    st.write(response)
+    # Button to trigger API request
+    if st.button("Get Prediction"):
+        try:
+            # Make the GET request
+            response = requests.get(constructed_url)
+            
+            # Display the response
+            if response.status_code == 200:
+                st.success("Request Successful!")
+                st.write("Response:", response.text)
+            else:
+                st.error(f"Request failed with status code: {response.status_code}")
+                st.write("Error details:", response.text)
+        except Exception as e:
+            st.error("An error occurred while making the request.")
+            st.write(str(e))
 
     # Create a placeholder for the messages
     """
